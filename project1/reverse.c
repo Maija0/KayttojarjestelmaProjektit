@@ -24,6 +24,9 @@ int readAndPrint(FILE *inputFile, FILE *outputFile) {
 
 
 int main (int argc, char *argv[]) {
+    if (argc == 1) {
+        readAndPrint(stdin, stdout);
+    }
     if (argc == 2) {
         FILE *inputFile = fopen(argv[1], "r");
 
@@ -33,8 +36,9 @@ int main (int argc, char *argv[]) {
         }
         readAndPrint(inputFile, stdout);
         fclose(inputFile);
+    }   else    {
+        printf("Wrong amount of arguments. \n");
     }
-    //printf("\n");
     return(0);
 }
 
