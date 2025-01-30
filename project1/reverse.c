@@ -38,6 +38,10 @@ int main (int argc, char *argv[]) {
         fclose(inputFile);
 
     } else if (argc == 3) { // ./reverse input.txt ouput.txt
+        if (strcmp(argv[1], argv[2]) == 0) {
+            fprintf(stderr, "Input and output file must differ\n");
+            exit(1);
+        }
         FILE *inputFile = fopen(argv[1], "r");
 
         if (inputFile == NULL) {
