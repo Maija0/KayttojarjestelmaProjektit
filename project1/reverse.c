@@ -10,7 +10,7 @@ int main (int argc, char *argv[]) {
     FILE *inputFile = fopen(argv[1], "r");
     char oneLine[MAX_LENGHT];
     while (fgets(oneLine, sizeof(oneLine), inputFile)) {
-        fputs(oneLine, stdout);
+        fprintf(stdout, "%s", oneLine);
     }
     fclose(inputFile);
     return(0);
