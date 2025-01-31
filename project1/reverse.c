@@ -4,13 +4,27 @@
 #define MAX_LENGHT 1000 
 
 int readAndPrint(FILE *inputFile, FILE *outputFile) {
-    char *lines[100]; 
-    int count = 0;
+    int count = 0; //count of lines in lines variable
     char oneLine[MAX_LENGHT];
+    char **lines;
+    int n = 10; //base size for file name/line 
 
+    lines = (char **)calloc(n, sizeof(char *));
+    if (lines == NULL) {
+        fprintf(stderr, "malloc failed\n");
+        exit(1);
+    }
     while (fgets(oneLine, sizeof(oneLine), inputFile)) { // reads lines from input.txt and stores to oneline
-        oneLine[strcspn(oneLine, "\n")] = 0;
-
+        oneLine[strcspn(oneLine, "\n")] = 0; //remove newline
+        if(count >= n) {
+            n *= 2;
+            lines = realloc(lines, n * sizeof(char *));
+                if (lines == NULL) {
+                fprintf(stderr, "malloc failed2\n");
+                exit(1);
+            }
+        }
+        
         lines[count] = malloc(strlen(oneLine)); // allocates memory for the lenght of oneLine
         strcpy(lines[count], oneLine);
         count ++;
