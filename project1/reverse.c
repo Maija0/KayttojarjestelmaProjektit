@@ -45,19 +45,21 @@ int main (int argc, char *argv[]) {
         FILE *inputFile = fopen(argv[1], "r");
 
         if (inputFile == NULL) {
-            fprintf(stderr, "error when opening inputfile '%s'\n", argv[1]);
+            fprintf(stderr, "error: cannot open file '%s'\n", argv[1]);
             return(1);
         }
         FILE *outputFile = fopen(argv[2], "w");
         if (outputFile == NULL) {
-            fprintf(stderr, "error when opening outputfile '%s'\n", argv[1]);
+            fprintf(stderr, "error: cannot open file '%s'\n", argv[2]);
             return(1);
         }
         readAndPrint(inputFile, outputFile);
         fclose(inputFile);
         fclose(outputFile);
     }   else    {
-        printf("Wrong amount of arguments. \n");
+        fprintf(stderr, "usage: reverse <input> <output>\n");
+        return(1);
+       
     }
     return(0);
 }
