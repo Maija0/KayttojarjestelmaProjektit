@@ -4,35 +4,32 @@
 
 int readAndPrint(FILE *inputFile, FILE *outputFile) {
     int count = 0; //count of lines in lines variable
-    char *oneLine;
+    char *oneLine = NULL;
     char **lines;
     int n = 10; //base size for file length
-    int j = 100; //base size for string length
-
-    oneLine = (char *)malloc(j * sizeof(char));
-    if (oneLine == NULL) {
-        fprintf(stderr, "malloc failed\n");
-        exit(1);
-    }
+    int j = 15; //base size for string length
 
     lines = (char **)malloc(n * sizeof(char *));
     if (lines == NULL) {
         fprintf(stderr, "malloc failed\n");
         exit(1);
     }
-    while (fgets(oneLine, j, inputFile)) { // reads lines from input.txt and stores to oneline
-        oneLine[strcspn(oneLine, "\n")] = 0; //remove newline
+    oneLine = (char *)malloc(j * sizeof(char));
 
-        int lineLength = strlen(oneLine);
-        if (lineLength + 1 >= j) {
-            j = lineLength + 1;
-            oneLine = realloc(oneLine, j * sizeof(char));
-            if (oneLine == NULL) {
-                fprintf(stderr, "realloc failed\n");
-                exit(1);
-            }
+    while(1) { // do until one of the break conditions
+        if (fgets(oneLine, j, inputFile) == NULL) { // read line from input, if eof break
+            break;
         }
-
+        int lineLength = strlen(oneLine);
+        while (lineLength == j - 1) { // realloc memory if being one away from buffer being full
+            j *= 2; // j is doubled
+            oneLine = realloc(oneLine, j *sizeof(char)); //new memory allocated
+        
+            if (fgets(oneLine +lineLength, j - lineLength, inputFile) == NULL) { //important if-clause that keeps reading into oneline untill NULL is reached (end of line)
+                break;
+            }
+            lineLength = strlen(oneLine); // update lineLength for while loop
+    }
         if(count >= n) {
             n *= 2;
             lines = realloc(lines, n * sizeof(char *));
@@ -47,7 +44,7 @@ int readAndPrint(FILE *inputFile, FILE *outputFile) {
         count ++;
     }
         for(int i = count -1; i >= 0; i--) { // fprintf from last line (count-1) to i >= 0 first line
-            fprintf(outputFile, "%s\n", lines[i]);
+            fprintf(outputFile, "%s", lines[i]);
             free(lines[i]); // free allocated memory throughout loop
         }
     free(lines);
