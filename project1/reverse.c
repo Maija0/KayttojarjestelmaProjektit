@@ -1,31 +1,48 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define MAX_LENGHT 1000 
 
 int readAndPrint(FILE *inputFile, FILE *outputFile) {
     int count = 0; //count of lines in lines variable
-    char oneLine[MAX_LENGHT];
+    char *oneLine;
     char **lines;
-    int n = 10; //base size for file name/line 
+    int n = 10; //base size for file length
+    int j = 100; //base size for string length
 
-    lines = (char **)calloc(n, sizeof(char *));
+    oneLine = (char *)malloc(j * sizeof(char));
+    if (oneLine == NULL) {
+        fprintf(stderr, "malloc failed\n");
+        exit(1);
+    }
+
+    lines = (char **)malloc(n * sizeof(char *));
     if (lines == NULL) {
         fprintf(stderr, "malloc failed\n");
         exit(1);
     }
-    while (fgets(oneLine, sizeof(oneLine), inputFile)) { // reads lines from input.txt and stores to oneline
+    while (fgets(oneLine, j, inputFile)) { // reads lines from input.txt and stores to oneline
         oneLine[strcspn(oneLine, "\n")] = 0; //remove newline
+
+        int lineLength = strlen(oneLine);
+        if (lineLength + 1 >= j) {
+            j = lineLength + 1;
+            oneLine = realloc(oneLine, j * sizeof(char));
+            if (oneLine == NULL) {
+                fprintf(stderr, "realloc failed\n");
+                exit(1);
+            }
+        }
+
         if(count >= n) {
             n *= 2;
             lines = realloc(lines, n * sizeof(char *));
-                if (lines == NULL) {
-                fprintf(stderr, "malloc failed2\n");
+            if (lines == NULL) {
+                fprintf(stderr, "realloc failed\n");
                 exit(1);
             }
         }
         
-        lines[count] = malloc(strlen(oneLine)); // allocates memory for the lenght of oneLine
+        lines[count] = malloc((lineLength +1) * sizeof(char)); // allocates memory for the lenght of oneLine
         strcpy(lines[count], oneLine);
         count ++;
     }
@@ -33,6 +50,8 @@ int readAndPrint(FILE *inputFile, FILE *outputFile) {
             fprintf(outputFile, "%s\n", lines[i]);
             free(lines[i]); // free allocated memory throughout loop
         }
+    free(lines);
+    free(oneLine);
     return(0);
 }
 
