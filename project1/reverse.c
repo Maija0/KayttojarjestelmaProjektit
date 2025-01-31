@@ -61,13 +61,13 @@ int main (int argc, char *argv[]) {
         FILE *inputFile = fopen(argv[1], "r");
 
         if (inputFile == NULL) {
-            fprintf(stderr, "error when opening inputfile '%s'\n", argv[1]);
+            fprintf(stderr, "error: cannot open file '%s'\n", argv[1]);
             return(1);
         }
         readAndPrint(inputFile, stdout);
         fclose(inputFile);
 
-    } else if (argc == 3) { // ./reverse input.txt ouput.txt
+    } else if (argc == 3) { // Case: ./reverse input.txt ouput.txt
         if (strcmp(argv[1], argv[2]) == 0) {
             fprintf(stderr, "Input and output file must differ\n");
             exit(1);
@@ -86,7 +86,7 @@ int main (int argc, char *argv[]) {
         readAndPrint(inputFile, outputFile);
         fclose(inputFile);
         fclose(outputFile);
-    }   else    {
+    }   else    { // Case: arguments different from 1, 2 or 3
         fprintf(stderr, "usage: reverse <input> <output>\n");
         return(1);
        
