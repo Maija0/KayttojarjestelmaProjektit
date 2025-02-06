@@ -1,0 +1,2 @@
+text from test2.text
+anohter line

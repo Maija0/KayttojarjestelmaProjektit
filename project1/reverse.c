@@ -22,7 +22,7 @@ int readAndPrint(FILE *inputFile, FILE *outputFile) {
         }
         int lineLength = strlen(oneLine);
         while (lineLength == j - 1) { // realloc memory if being one away from buffer being full
-            j *= 2; // j is doubled
+            j *= 2;
             oneLine = realloc(oneLine, j *sizeof(char)); //new memory allocated
         
             if (fgets(oneLine +lineLength, j - lineLength, inputFile) == NULL) { //important if-clause that keeps reading into oneline untill NULL is reached (end of line)
