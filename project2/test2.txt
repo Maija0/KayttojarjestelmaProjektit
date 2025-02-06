@@ -1,2 +1,7 @@
 text from test2.text
 anohter line
+this line has foo in it
+anohter line
+so does this foolish line; do you see where?
+even this line, which has barfood in it, will be printed.
+This line shouldn't be printed since it has Foo with uppercase.
