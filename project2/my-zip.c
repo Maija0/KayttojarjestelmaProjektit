@@ -8,8 +8,27 @@ void zip( const char *filename) {
         printf("my-zip: cannot open file\n");
         exit(1);
     }
-    // functionality
+    char current, prev;
+    int count = 1;
 
+    prev = fgetc(file);
+    if (prev ==EOF) {
+        fclose(file);
+        return;
+    }
+    while ((current = fgetc(file)) != EOF) {
+        if (current == prev) { //adds count until letter changes
+            count++;
+        } else { // letter changed so write the combination
+            fwrite(&count, sizeof(int), 1, stdout); // use fwrite and write count as 4byte integer
+            fwrite(&prev, sizeof(char), 1, stdout); // write the char
+            prev = current;
+            count = 1;
+        }
+    }
+    //writes the last bytes
+    fwrite(&count, sizeof(int), 1, stdout);
+    fwrite(&prev, sizeof(char), 1, stdout);
     fclose(file);
 }
 

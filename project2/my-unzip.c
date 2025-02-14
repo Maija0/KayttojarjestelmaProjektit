@@ -8,9 +8,9 @@ void unzip( const char *filename) {
         printf("my-unzip: cannot open file\n");
         exit(1);
     }
-
-    // functionality
-    fclose(file);
+    int count;
+    char character;
+    while(fread())
 }
 
 int main (int argc, char *argv[]) {
@@ -19,7 +19,7 @@ int main (int argc, char *argv[]) {
         exit(1);
     }
     for (int i = 1; i<argc; i++) {
-        zip(argv[i]);
+        unzip(argv[i]);
     }
     return(0);
 }
