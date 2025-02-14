@@ -6,8 +6,8 @@ int readAndPrint(FILE *inputFile, FILE *outputFile) {
     int count = 0; //count of lines in lines variable
     char *oneLine = NULL;
     char **lines;
-    int n = 10; //base size for file length
-    int j = 15; //base size for string length
+    int n = 10;
+    int j = 15;
 
     lines = (char **)malloc(n * sizeof(char *));
     if (lines == NULL) {
@@ -43,7 +43,7 @@ int readAndPrint(FILE *inputFile, FILE *outputFile) {
         strcpy(lines[count], oneLine);
         count ++;
     }
-        for(int i = count -1; i >= 0; i--) { // fprintf from last line (count-1) to i >= 0 first line
+        for(int i = count -1; i >= 0; i--) { // fprintf from last line to first line
             fprintf(outputFile, "%s", lines[i]);
             free(lines[i]); // free allocated memory throughout loop
         }
@@ -54,10 +54,10 @@ int readAndPrint(FILE *inputFile, FILE *outputFile) {
 
 
 int main (int argc, char *argv[]) {
-    if (argc == 1) { // ./reverse
+    if (argc == 1) { // Used when reversing terminal input and printing it to terminal
         readAndPrint(stdin, stdout);
 
-    }   else if (argc == 2) { // ./reverse input.txt
+    }   else if (argc == 2) { // Used when reversing input.txt to terminal
         FILE *inputFile = fopen(argv[1], "r");
 
         if (inputFile == NULL) {
@@ -67,7 +67,7 @@ int main (int argc, char *argv[]) {
         readAndPrint(inputFile, stdout);
         fclose(inputFile);
 
-    } else if (argc == 3) { // Case: ./reverse input.txt ouput.txt
+    } else if (argc == 3) { // Used when reversing input.txt to output.txt
         if (strcmp(argv[1], argv[2]) == 0) {
             fprintf(stderr, "Input and output file must differ\n");
             exit(1);
@@ -86,7 +86,7 @@ int main (int argc, char *argv[]) {
         readAndPrint(inputFile, outputFile);
         fclose(inputFile);
         fclose(outputFile);
-    }   else    { // Case: arguments different from 1, 2 or 3
+    }   else    { // Case: argument count different from 1, 2 or 3
         fprintf(stderr, "usage: reverse <input> <output>\n");
         return(1);
        
