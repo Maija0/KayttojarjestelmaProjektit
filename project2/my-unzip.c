@@ -10,7 +10,13 @@ void unzip( const char *filename) {
     }
     int count;
     char character;
-    while(fread())
+    while(fread(&count, sizeof(int), 1, file) == 1) { // converts 4byte binary back to integer
+        fread(&character, sizeof(char), 1, file);   //reads the character and
+        for (int i = 0; i < count; i++) { //Writes the character count-times
+            putchar(character); 
+        }
+    }
+    fclose(file);
 }
 
 int main (int argc, char *argv[]) {
