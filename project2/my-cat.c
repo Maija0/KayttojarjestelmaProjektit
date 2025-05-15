@@ -1,6 +1,8 @@
+// https://www.geeksforgeeks.org/build-your-own-cat-command-in-c-for-linux/ used for overall understanding and main "for"- loop
 #include <stdio.h>
 #include <stdlib.h>
 
+// Opens file and prints the content line by line
 void print_file(const char *filename) {
     FILE *file = fopen(filename, "r");
     if (file == NULL) {

@@ -1,7 +1,12 @@
+// https://www.geeksforgeeks.org/program-to-reverse-order-of-words-in-a-sentence/ Used as insipiration on reverse algorithm
+// https://stackoverflow.com/questions/34833879/dynamically-allocating-a-string-with-unknown-size
+// https://www.geeksforgeeks.org/dynamic-memory-allocation-in-c-using-malloc-calloc-free-and-realloc/ 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+// Reads all lines from inputFile, stores them in array and writes them in reverse order to outputFile
 int readAndPrint(FILE *inputFile, FILE *outputFile) {
     int count = 0; //count of lines in lines variable
     char *oneLine = NULL;

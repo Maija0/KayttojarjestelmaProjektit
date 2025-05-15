@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Searches for a term and prints out all the lines that hold that term in given file
 void grep(const char *term, const char *filename) {
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
@@ -23,7 +24,7 @@ int main (int argc, char *argv[]) {
         exit(1);
     }
     const char *term = argv[1]; // the term we are locating
-    const char *filename = argv[2]; // where we are looking to find the term
+    const char *filename = argv[2]; // filename to search the term from
     grep(term, filename);
 
     return(0);

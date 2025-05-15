@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Decompresses a rle file by reading count and character and giving correct output
 void unzip( const char *filename) {
     FILE *file = fopen(filename, "r");
     if (file == NULL) {

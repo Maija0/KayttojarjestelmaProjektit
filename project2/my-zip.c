@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Compresses a file with rle by counting consecutive characters and writing count+character to stdout
 void zip( const char *filename) {
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
